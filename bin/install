@@ -34,7 +34,8 @@ install() {
   echo "Downloading sinker from ${download_url}"
   curl -L "$download_url" -o "${bin_path}"
   chmod +x "${bin_path}"
-  echo; echo "Sinker ${version} installed."
+  echo
+  echo "Sinker ${version} installed."
 }
 
 install ${ASDF_INSTALL_VERSION} ${ASDF_INSTALL_PATH}
