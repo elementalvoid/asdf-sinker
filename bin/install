@@ -7,6 +7,8 @@ set -euo pipefail
 [[ -z ${ASDF_INSTALL_PATH} ]] && echo "ASDF_INSTALL_PATH is required" && exit 1
 [[ ${ASDF_INSTALL_TYPE} != version ]] && echo "install type '${ASDF_INSTALL_TYPE}' is not supported." && exit 1
 
+platform="$(uname | tr A-Z a-z)"
+
 tmp_dir=$(mktemp -d -t sinker_XXXX)
 cleanup() {
   rm -rf ${tmp_dir}
