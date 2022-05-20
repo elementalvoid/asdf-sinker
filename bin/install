@@ -7,17 +7,6 @@ set -euo pipefail
 [[ -z ${ASDF_INSTALL_PATH} ]] && echo "ASDF_INSTALL_PATH is required" && exit 1
 [[ ${ASDF_INSTALL_TYPE} != version ]] && echo "install type '${ASDF_INSTALL_TYPE}' is not supported." && exit 1
 
-arch=$(uname -m)
-if [[ ${arch} == x86_64 ]]; then
-  arch=amd64
-fi
-
-platform="$(uname | tr A-Z a-z)"
-if [[ ! (${platform} == linux || ${platform} == darwin) ]]; then
-  echo "Unsupported platform '${platform}' found. Only Linux and Darwin are supported."
-  exit 1
-fi
-
 tmp_dir=$(mktemp -d -t sinker_XXXX)
 cleanup() {
   rm -rf ${tmp_dir}
@@ -34,7 +23,8 @@ install() {
   local bin_path="${install_path}/sinker"
 
   local download_url
-  download_url="https://github.com/plexsystems/sinker/releases/download/${version}/sinker-${platform}-${arch}"
+  # ¯\_(ツ)_/¯ 'sinker' only has x86_64 binaries...
+  download_url="https://github.com/plexsystems/sinker/releases/download/${version}/sinker-${platform}-amd64"
 
   mkdir -p "${install_path}"
 
